@@ -5,10 +5,9 @@ import { formSchema } from './validations';
 
 import { StyledButton } from '../../../styles/button';
 import { StyledForm } from '../../../styles/form';
+
 import Input from '../Input';
-
 import { UserContext } from '../../../providers/UserContext/UserContext';
-
 import { iLoginFormData } from '../../../providers/UserContext/@types';
 
 const LoginForm = () => {
