@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import ProductList from '../../components/ProductList';
 
 import { StyledContainer } from '../../styles/grid';
-import { CartContext } from '../../providers/CartContext';
+import { CartContext } from '../../providers/CartContext/CartContext';
 
 const ShopPage = () => {
   const { cartModal } = useContext(CartContext);

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './styles/theme';
 import { UserProvider } from './providers/UserContext/UserContext';
-import { CartProvider } from './providers/CartContext';
+import { CartProvider } from './providers/CartContext/CartContext';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

@@ -13,7 +13,12 @@ const ProductCard = ({ name, category, price, img }: iProduct) => (
         {name}
       </StyledTitle>
       <StyledParagraph className='category'>{category}</StyledParagraph>
-      <StyledParagraph className='price'>{price}</StyledParagraph>
+      <StyledParagraph className='price'>
+        {price.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        })}
+      </StyledParagraph>
       <StyledButton $buttonSize='medium' $buttonStyle='green'>
         Adicionar
       </StyledButton>

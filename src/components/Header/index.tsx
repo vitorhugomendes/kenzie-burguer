@@ -8,7 +8,7 @@ import LogoKenzieBurguer from '../../assets/LogoKenzieBurguer.svg';
 import { StyledContainer } from '../../styles/grid';
 
 import { UserContext } from '../../providers/UserContext/UserContext';
-import { CartContext } from '../../providers/CartContext';
+import { CartContext } from '../../providers/CartContext/CartContext';
 
 const Header = () => {
   const { userLogout } = useContext(UserContext);

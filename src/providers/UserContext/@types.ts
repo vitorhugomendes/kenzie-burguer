@@ -8,6 +8,7 @@ export interface iUserContext {
   userRegister: (formData: iRegisterFormData) => void;
   products: iProduct[];
   searchProducts: iProduct[];
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface iResponseLoginRegister {
