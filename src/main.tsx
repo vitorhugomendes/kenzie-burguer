@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './styles/theme';
-import { UserProvider } from './providers/UserContext';
+import { UserProvider } from './providers/UserContext/UserContext';
 import { CartProvider } from './providers/CartContext';
 import App from './App';
 

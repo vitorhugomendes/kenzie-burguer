@@ -7,12 +7,9 @@ import { StyledButton } from '../../../styles/button';
 import { StyledForm } from '../../../styles/form';
 import Input from '../Input';
 
-import { UserContext } from '../../../providers/UserContext';
+import { UserContext } from '../../../providers/UserContext/UserContext';
 
-export interface iLoginFormData {
-  email: string;
-  password: string;
-}
+import { iLoginFormData } from '../../../providers/UserContext/@types';
 
 const LoginForm = () => {
   const { userLogin } = useContext(UserContext);
@@ -29,14 +26,14 @@ const LoginForm = () => {
         label='Email'
         id='email'
         type='email'
-        register={register}
+        register={register('email')}
         error={errors?.email?.message}
       />
       <Input
         label='Senha'
         id='password'
         type='password'
-        register={register}
+        register={register('password')}
         error={errors?.password?.message}
       />
       <StyledButton type='submit' $buttonSize='default' $buttonStyle='green'>

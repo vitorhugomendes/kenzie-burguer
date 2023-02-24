@@ -7,10 +7,12 @@ import LogoKenzieBurguer from '../../assets/LogoKenzieBurguer.svg';
 
 import { StyledContainer } from '../../styles/grid';
 
-import { UserContext } from '../../providers/UserContext';
+import { UserContext } from '../../providers/UserContext/UserContext';
+import { CartContext } from '../../providers/CartContext';
 
 const Header = () => {
   const { userLogout } = useContext(UserContext);
+  const { setCartModal } = useContext(CartContext);
 
   return (
     <StyledHeader>
@@ -27,12 +29,17 @@ const Header = () => {
               <button
                 type='button'
                 onClick={() => {
-                  userLogout();
+                  setCartModal(true);
                 }}
               >
                 <MdShoppingCart size={28} />
               </button>
-              <button type='button'>
+              <button
+                type='button'
+                onClick={() => {
+                  userLogout();
+                }}
+              >
                 <MdLogout size={28} />
               </button>
             </div>

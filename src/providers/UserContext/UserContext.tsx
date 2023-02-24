@@ -1,51 +1,23 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
-import { api } from '../services/api';
-import { iLoginFormData } from '../components/Form/LoginForm';
-import { iRegisterFormData } from '../components/Form/RegisterForm';
-
-interface iUserContextProps {
-  children: React.ReactNode;
-}
-
-interface iUserContext {
-  userLogin: (formData: iLoginFormData) => void;
-  userLogout: () => void;
-  userRegister: (formData: iRegisterFormData) => void;
-  products: iProduct[];
-}
-
-interface iResponseLoginRegister {
-  accessToken: string;
-  user: iUser;
-}
-
-interface iUser {
-  email: string;
-  name: string;
-  id: number;
-}
-
-interface iProduct {
-  id: number;
-  name: string;
-  category: string;
-  price: number;
-  img: string;
-}
-
-interface Error {
-  message: string[];
-  statusCode: number;
-}
+import {
+  iUserContextProps,
+  iUserContext,
+  iResponseLoginRegister,
+  iUser,
+  iProduct,
+  iLoginFormData,
+  iRegisterFormData,
+} from './@types';
+import { api } from '../../services/api';
 
 export const UserContext = createContext({} as iUserContext);
 
 export const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [products, setProducts] = useState<iProduct[]>([]);
+  const [search, setSearch] = useState('');
 
   const userToken = localStorage.getItem('KenzieBurguer@TOKEN');
 
@@ -63,9 +35,8 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         response.data.accessToken
       );
       navigate('/shop');
-    } catch (err) {
-      const error = err as AxiosError<Error>;
-      toast.error(error.response?.data);
+    } catch (error) {
+      toast.error(error?.response?.data);
     }
   };
 
@@ -88,9 +59,8 @@ export const UserProvider = ({ children }: iUserContextProps) => {
           });
           setProducts(response.data);
           navigate('/shop');
-        } catch (err) {
-          const error = err as AxiosError<Error>;
-          toast.error(error.response?.data);
+        } catch (error) {
+          toast.error(error?.response?.data);
         }
       };
 
@@ -108,15 +78,20 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         'Usuário criado com sucesso, redirecionando para a tela de login'
       );
       navigate('/');
-    } catch (err) {
-      const error = err as AxiosError<Error>;
-      toast.error(error.response?.data);
+    } catch (error) {
+      toast.error(error?.response?.data);
     }
   };
 
+  const searchProducts = products.filter((product) =>
+    search === ''
+      ? true
+      : product.name.toLowerCase().includes(search.toLowerCase()) ||
+        product.category.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <UserContext.Provider
-      value={{ userLogin, userLogout, userRegister, products }}
+      value={{ userLogin, userLogout, userRegister, products, searchProducts }}
     >
       {children}
     </UserContext.Provider>

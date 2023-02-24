@@ -7,7 +7,7 @@ import { StyledParagraph, StyledTitle } from '../../styles/typography';
 import { CartContext } from '../../providers/CartContext';
 
 const CartModal = () => {
-  const {} = useContext(CartContext);
+  const { setCartModal } = useContext(CartContext);
   return (
     <StyledCartModalBox>
       <dialog>
@@ -15,7 +15,13 @@ const CartModal = () => {
           <StyledTitle tag='h2' $fontSize='three'>
             Carrinho de compras
           </StyledTitle>
-          <button type='button' aria-label='Fechar' onClick={() => {}}>
+          <button
+            type='button'
+            aria-label='Fechar'
+            onClick={() => {
+              setCartModal(false);
+            }}
+          >
             <MdClose size={21} />
           </button>
         </header>
