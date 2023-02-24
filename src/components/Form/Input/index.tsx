@@ -1,13 +1,17 @@
-import { UseFormRegister, FieldValues } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
+import { iLoginFormData } from '../LoginForm';
+import { iRegisterFormData } from '../RegisterForm';
 
 import { StyledTextField } from '../../../styles/form';
 import { StyledParagraph } from '../../../styles/typography';
 
 interface iInputProps {
   label: string;
-  id: string;
+  id: 'email' | 'password' | 'name' | 'passwordConfirmation';
   type: string;
-  register: UseFormRegister<FieldValues>;
+  register:
+    | UseFormRegister<iLoginFormData>
+    | UseFormRegister<iRegisterFormData>;
   error: string | undefined;
 }
 

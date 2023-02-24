@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './styles/theme';
 import { UserProvider } from './providers/UserContext';
+import { CartProvider } from './providers/CartContext';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -11,7 +12,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <BrowserRouter>
       <ThemeProvider theme={mainTheme}>
         <UserProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </UserProvider>
       </ThemeProvider>
     </BrowserRouter>

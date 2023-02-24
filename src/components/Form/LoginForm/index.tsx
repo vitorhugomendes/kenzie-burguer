@@ -1,14 +1,18 @@
 import { useContext } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema } from './validations';
-import { iLoginFormData } from './types';
 
 import { StyledButton } from '../../../styles/button';
 import { StyledForm } from '../../../styles/form';
 import Input from '../Input';
 
 import { UserContext } from '../../../providers/UserContext';
+
+export interface iLoginFormData {
+  email: string;
+  password: string;
+}
 
 const LoginForm = () => {
   const { userLogin } = useContext(UserContext);
