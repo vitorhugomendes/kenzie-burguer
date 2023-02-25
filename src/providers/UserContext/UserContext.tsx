@@ -75,7 +75,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         formData
       );
       toast.success(
-        'Usuário criado com sucesso, redirecionando para a tela de login'
+        'Usuário criado com sucesso, redirecionado para a tela de login'
       );
       navigate('/');
     } catch (error) {

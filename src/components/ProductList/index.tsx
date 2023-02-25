@@ -9,11 +9,11 @@ const ProductList = () => {
     <StyledProductList>
       {searchProducts.map((product) => (
         <ProductCard
-          id={product.id}
           key={product.id}
-          category={product.category}
-          img={product.img}
+          id={product.id}
           name={product.name}
+          img={product.img}
+          category={product.category}
           price={product.price}
         />
       ))}
