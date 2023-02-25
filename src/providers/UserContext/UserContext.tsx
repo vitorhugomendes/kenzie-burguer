@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         response.data.accessToken
       );
       navigate('/shop');
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error?.response?.data);
     }
   };
@@ -61,7 +61,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
           });
           setProducts(response.data);
           navigate('/shop');
-        } catch (error) {
+        } catch (error: any) {
           toast.error(error?.response?.data);
         } finally {
           setLoading(false);
@@ -82,7 +82,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         'Usuário criado com sucesso, redirecionado para a tela de login'
       );
       navigate('/');
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error?.response.data);
     }
   };
