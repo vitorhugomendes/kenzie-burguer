@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -67,6 +67,12 @@ export const UserProvider = ({ children }: iUserContextProps) => {
       toast.error(error?.response.data);
     }
   };
+
+  useEffect(() => {
+    if (userToken) {
+      navigate('/shop');
+    }
+  }, []);
 
   return (
     <UserContext.Provider
