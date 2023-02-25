@@ -3,6 +3,7 @@ export interface iUserContextProps {
 }
 
 export interface iUserContext {
+  loading: boolean;
   userLogin: (formData: iLoginFormData) => void;
   userLogout: () => void;
   userRegister: (formData: iRegisterFormData) => void;

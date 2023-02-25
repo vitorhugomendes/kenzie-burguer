@@ -3,6 +3,7 @@ import { MdDelete } from 'react-icons/md';
 
 import { StyledCartProductCard } from './style';
 import { StyledTitle } from '../../../../styles/typography';
+
 import { iProduct } from '../../../../providers/UserContext/@types';
 import { CartContext } from '../../../../providers/CartContext/CartContext';
 

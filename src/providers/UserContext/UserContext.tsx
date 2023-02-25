@@ -15,6 +15,7 @@ import { api } from '../../services/api';
 export const UserContext = createContext({} as iUserContext);
 
 export const UserProvider = ({ children }: iUserContextProps) => {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<iUser | null>(null);
   const [products, setProducts] = useState<iProduct[]>([]);
   const [search, setSearch] = useState('');
@@ -52,6 +53,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
     } else {
       const userProducts = async () => {
         try {
+          setLoading(true);
           const response = await api.get<iProduct[]>('/products', {
             headers: {
               Authorization: `Bearer ${userToken}`,
@@ -61,6 +63,8 @@ export const UserProvider = ({ children }: iUserContextProps) => {
           navigate('/shop');
         } catch (error) {
           toast.error(error?.response?.data);
+        } finally {
+          setLoading(false);
         }
       };
 
@@ -79,7 +83,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
       );
       navigate('/');
     } catch (error) {
-      toast.error(error?.response?.data);
+      toast.error(error?.response.data);
     }
   };
 
@@ -92,6 +96,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   return (
     <UserContext.Provider
       value={{
+        loading,
         userLogin,
         userLogout,
         userRegister,
