@@ -1,16 +1,45 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+
 import { StyledShopPage } from './style';
+import { StyledContainer } from '../../styles/grid';
+
 import CartModal from '../../components/CartModal';
 import Header from '../../components/Header';
 import ProductList from '../../components/ProductList';
-
-import { StyledContainer } from '../../styles/grid';
+import { api } from '../../services/api';
+import { iProduct } from '../../providers/UserContext/@types';
 import { UserContext } from '../../providers/UserContext/UserContext';
 import { CartContext } from '../../providers/CartContext/CartContext';
 
 const ShopPage = () => {
-  const { loading } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  const { userToken, userLogout, setProducts } = useContext(UserContext);
   const { cartModal } = useContext(CartContext);
+
+  useEffect(() => {
+    if (!userToken) {
+      userLogout();
+    } else {
+      const userProducts = async () => {
+        try {
+          setLoading(true);
+          const response = await api.get<iProduct[]>('/products', {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          });
+          setProducts(response.data);
+        } catch (error: any) {
+          toast.error(error?.response?.data);
+        } finally {
+          setLoading(false);
+        }
+      };
+      userProducts();
+    }
+  }, []);
+
   return (
     <StyledShopPage>
       {cartModal === true ? <CartModal /> : null}

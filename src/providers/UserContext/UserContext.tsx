@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -15,12 +15,18 @@ import { api } from '../../services/api';
 export const UserContext = createContext({} as iUserContext);
 
 export const UserProvider = ({ children }: iUserContextProps) => {
-  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<iUser | null>(null);
-  const [products, setProducts] = useState<iProduct[]>([]);
   const [search, setSearch] = useState('');
+  const [products, setProducts] = useState<iProduct[]>([]);
 
   const userToken = localStorage.getItem('KenzieBurguer@TOKEN');
+
+  const searchProducts = products.filter((product) =>
+    search === ''
+      ? true
+      : product.name.toLowerCase().includes(search.toLowerCase()) ||
+        product.category.toLowerCase().includes(search.toLowerCase())
+  );
 
   const navigate = useNavigate();
 
@@ -47,31 +53,6 @@ export const UserProvider = ({ children }: iUserContextProps) => {
     navigate('/');
   };
 
-  useEffect(() => {
-    if (!userToken) {
-      userLogout();
-    } else {
-      const userProducts = async () => {
-        try {
-          setLoading(true);
-          const response = await api.get<iProduct[]>('/products', {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-            },
-          });
-          setProducts(response.data);
-          navigate('/shop');
-        } catch (error: any) {
-          toast.error(error?.response?.data);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      userProducts();
-    }
-  }, []);
-
   const userRegister = async (formData: iRegisterFormData) => {
     try {
       const response = await api.post<iResponseLoginRegister>(
@@ -87,22 +68,17 @@ export const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const searchProducts = products.filter((product) =>
-    search === ''
-      ? true
-      : product.name.toLowerCase().includes(search.toLowerCase()) ||
-        product.category.toLowerCase().includes(search.toLowerCase())
-  );
   return (
     <UserContext.Provider
       value={{
-        loading,
+        userToken,
         userLogin,
         userLogout,
         userRegister,
-        products,
-        searchProducts,
         setSearch,
+        products,
+        setProducts,
+        searchProducts,
       }}
     >
       {children}

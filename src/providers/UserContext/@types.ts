@@ -3,12 +3,13 @@ export interface iUserContextProps {
 }
 
 export interface iUserContext {
-  loading: boolean;
+  userToken: string | null;
   userLogin: (formData: iLoginFormData) => void;
   userLogout: () => void;
   userRegister: (formData: iRegisterFormData) => void;
   products: iProduct[];
   searchProducts: iProduct[];
+  setProducts: React.Dispatch<React.SetStateAction<iProduct[]>>;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
