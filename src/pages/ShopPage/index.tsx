@@ -18,10 +18,12 @@ const ShopPage = () => {
   const { userToken, userLogout, setProducts } = useContext(UserContext);
   const { cartModal } = useContext(CartContext);
   const navigate = useNavigate();
+
   useEffect(() => {
+    console.log(userToken);
     if (userToken === null) {
       navigate('/');
-      userLogout();
+      //userLogout();
     } else {
       const userProducts = async () => {
         try {
