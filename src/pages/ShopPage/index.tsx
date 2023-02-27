@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 import { StyledShopPage } from './style';
 import { StyledContainer } from '../../styles/grid';
@@ -14,8 +15,10 @@ import { CartContext } from '../../providers/CartContext/CartContext';
 
 const ShopPage = () => {
   const [loading, setLoading] = useState(false);
-  const { userToken, navigate, setProducts } = useContext(UserContext);
+  const { userToken, setProducts } = useContext(UserContext);
   const { cartModal } = useContext(CartContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userToken === null) {
