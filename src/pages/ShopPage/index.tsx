@@ -17,12 +17,9 @@ const ShopPage = () => {
   const [loading, setLoading] = useState(false);
   const { userToken, userLogout, setProducts } = useContext(UserContext);
   const { cartModal } = useContext(CartContext);
-
+  const navigate = useNavigate();
   useEffect(() => {
-    const navigate = useNavigate();
-    console.log('teste');
-
-    if (!userToken) {
+    if (userToken === null) {
       navigate('/');
       userLogout();
     } else {
