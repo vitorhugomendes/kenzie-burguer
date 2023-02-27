@@ -18,7 +18,7 @@ const ShopPage = () => {
   const { cartModal } = useContext(CartContext);
 
   useEffect(() => {
-    if (!userToken) {
+    if (userToken === null) {
       userLogout();
     } else {
       const userProducts = async () => {
