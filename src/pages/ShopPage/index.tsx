@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 import { StyledShopPage } from './style';
 import { StyledContainer } from '../../styles/grid';
@@ -18,7 +19,11 @@ const ShopPage = () => {
   const { cartModal } = useContext(CartContext);
 
   useEffect(() => {
+    const navigate = useNavigate();
+    console.log('teste');
+
     if (!userToken) {
+      navigate('/');
       userLogout();
     } else {
       const userProducts = async () => {

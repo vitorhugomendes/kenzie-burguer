@@ -36,6 +36,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         '/login',
         formData
       );
+
       setUser(response.data.user);
       window.localStorage.setItem(
         'KenzieBurguer@TOKEN',
