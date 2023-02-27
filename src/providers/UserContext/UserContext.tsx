@@ -81,7 +81,6 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         userLogin,
         userLogout,
         userRegister,
-        navigate,
         setSearch,
         products,
         setProducts,

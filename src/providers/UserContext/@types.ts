@@ -1,5 +1,3 @@
-import { NavigateFunction } from 'react-router-dom';
-
 export interface iUserContextProps {
   children: React.ReactNode;
 }
@@ -9,7 +7,6 @@ export interface iUserContext {
   userLogin: (formData: iLoginFormData) => void;
   userLogout: () => void;
   userRegister: (formData: iRegisterFormData) => void;
-  navigate: NavigateFunction;
   products: iProduct[];
   searchProducts: iProduct[];
   setProducts: React.Dispatch<React.SetStateAction<iProduct[]>>;
