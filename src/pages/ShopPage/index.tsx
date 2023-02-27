@@ -14,12 +14,12 @@ import { CartContext } from '../../providers/CartContext/CartContext';
 
 const ShopPage = () => {
   const [loading, setLoading] = useState(false);
-  const { userToken, userLogout, setProducts } = useContext(UserContext);
+  const { userToken, navigate, setProducts } = useContext(UserContext);
   const { cartModal } = useContext(CartContext);
 
   useEffect(() => {
     if (userToken === null) {
-      userLogout();
+      navigate('/');
     } else {
       const userProducts = async () => {
         try {
