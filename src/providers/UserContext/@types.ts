@@ -4,9 +4,9 @@ export interface iUserContextProps {
 
 export interface iUserContext {
   userToken: string | null;
-  userLogin: (formData: iLoginFormData) => void;
+  userLogin: (formData: iLoginFormData) => Promise<void>;
   userLogout: () => void;
-  userRegister: (formData: iRegisterFormData) => void;
+  userRegister: (formData: iRegisterFormData) => Promise<void>;
   products: iProduct[];
   searchProducts: iProduct[];
   setProducts: React.Dispatch<React.SetStateAction<iProduct[]>>;
