@@ -1,12 +1,9 @@
 import { useContext } from 'react';
 import { MdShoppingCart, MdLogout } from 'react-icons/md';
-
 import SearchForm from './SearchForm';
 import { StyledHeader } from './style';
 import LogoKenzieBurguer from '../../assets/LogoKenzieBurguer.svg';
-
 import { StyledContainer } from '../../styles/grid';
-
 import { UserContext } from '../../providers/UserContext/UserContext';
 import { CartContext } from '../../providers/CartContext/CartContext';
 

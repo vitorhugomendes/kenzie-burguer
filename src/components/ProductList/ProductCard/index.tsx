@@ -1,24 +1,19 @@
 import { useContext } from 'react';
-import { toast } from 'react-toastify';
+import { AiFillPlusSquare, AiFillMinusSquare } from 'react-icons/ai';
 import { StyledProductCard } from './style';
 import { StyledButton } from '../../../styles/button';
 import { StyledParagraph, StyledTitle } from '../../../styles/typography';
-import { iProduct } from '../../../providers/UserContext/@types';
+import { iProductCard } from '../../../providers/CartContext/@types';
 import { CartContext } from '../../../providers/CartContext/CartContext';
 
-const ProductCard = ({ id, name, category, price, img }: iProduct) => {
-  const { cart, setCart } = useContext(CartContext);
-
-  const addProductToCart = (product: iProduct) => {
-    const checkCart = cart.some((cartProduct) => id === cartProduct.id);
-
-    if (checkCart) {
-      toast.error('O produto já está no carrinho');
-    } else {
-      setCart([...cart, product]);
-      toast.success('Produto adicionado no carrinho');
-    }
-  };
+const ProductCard = ({ product }: iProductCard) => {
+  const { name, category, price, img } = product;
+  const {
+    addProductToCart,
+    productQuantity,
+    increaseQuantity,
+    decreaseQuantity,
+  } = useContext(CartContext);
 
   return (
     <StyledProductCard>
@@ -40,11 +35,28 @@ const ProductCard = ({ id, name, category, price, img }: iProduct) => {
           $buttonSize='medium'
           $buttonStyle='green'
           onClick={() => {
-            addProductToCart({ id, name, category, price, img });
+            addProductToCart(product, productQuantity);
           }}
         >
           Adicionar
         </StyledButton>
+        <button
+          type='button'
+          aria-label='Subtrair'
+          onClick={() => decreaseQuantity()}
+        >
+          <AiFillMinusSquare size={24} />
+        </button>
+        <StyledTitle tag='h2' $fontSize='four'>
+          {productQuantity}
+        </StyledTitle>
+        <button
+          type='button'
+          aria-label='Adicionar'
+          onClick={() => increaseQuantity()}
+        >
+          <AiFillPlusSquare size={24} />
+        </button>
       </div>
     </StyledProductCard>
   );

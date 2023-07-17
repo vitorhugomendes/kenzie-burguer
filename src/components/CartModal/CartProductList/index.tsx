@@ -1,27 +1,18 @@
 import { useContext } from 'react';
 import CartProductCard from './CartProductCard';
-
 import { StyledCartProductList } from './style';
 import { StyledButton } from '../../../styles/button';
 import { StyledParagraph } from '../../../styles/typography';
-
 import { CartContext } from '../../../providers/CartContext/CartContext';
 
 const CartProductList = () => {
-  const { cart, cartTotal, cartClear } = useContext(CartContext);
+  const { cartItems, totalPrice, cartClear } = useContext(CartContext);
 
   return (
     <StyledCartProductList>
       <ul>
-        {cart.map((product) => (
-          <CartProductCard
-            key={product.id}
-            id={product.id}
-            category={product.category}
-            img={product.img}
-            name={product.name}
-            price={product.price}
-          />
+        {cartItems.map((product) => (
+          <CartProductCard key={product.id} product={product} />
         ))}
       </ul>
 
@@ -30,7 +21,7 @@ const CartProductList = () => {
           <strong>Total</strong>
         </StyledParagraph>
         <StyledParagraph className='total'>
-          {cartTotal.toLocaleString('pt-BR', {
+          {totalPrice.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',
           })}

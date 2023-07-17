@@ -1,10 +1,8 @@
 import { useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
 import { StyledShopPage } from './style';
 import { StyledContainer } from '../../styles/grid';
-
 import CartModal from '../../components/CartModal';
 import Header from '../../components/Header';
 import ProductList from '../../components/ProductList';

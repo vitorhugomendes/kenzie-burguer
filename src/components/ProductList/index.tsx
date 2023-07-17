@@ -8,14 +8,7 @@ const ProductList = () => {
   return (
     <StyledProductList>
       {searchProducts.map((product) => (
-        <ProductCard
-          key={product.id}
-          id={product.id}
-          name={product.name}
-          img={product.img}
-          category={product.category}
-          price={product.price}
-        />
+        <ProductCard key={product.id} product={product} />
       ))}
     </StyledProductList>
   );

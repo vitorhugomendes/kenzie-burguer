@@ -7,9 +7,19 @@ export interface iCartContextProps {
 export interface iCartContext {
   cartModal: boolean;
   setCartModal: React.Dispatch<React.SetStateAction<boolean>>;
-  cart: iProduct[];
-  setCart: React.Dispatch<React.SetStateAction<iProduct[]>>;
-  cartTotal: number;
+  cartItems: iProduct[];
+  setCartItems: React.Dispatch<React.SetStateAction<iProduct[]>>;
+  totalPrice: number;
+  totalQuantities: number;
+  productQuantity: number;
+  increaseQuantity: () => void;
+  decreaseQuantity: () => void;
+  addProductToCart: (product: iProduct, quantity: number) => void;
   cartClear: () => void;
-  cartRemoveProduct: (product: iProduct) => void;
+  toggleCartItemQuantity: (id: number, value: string) => void;
+  removeProductFromCart: (product: iProduct) => void;
+}
+
+export interface iProductCard {
+  product: iProduct;
 }

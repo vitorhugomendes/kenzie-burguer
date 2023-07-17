@@ -1,14 +1,12 @@
 import { useContext } from 'react';
 import { MdClose } from 'react-icons/md';
 import CartProductList from './CartProductList';
-
 import { StyledCartModalBox } from './style';
 import { StyledParagraph, StyledTitle } from '../../styles/typography';
-
 import { CartContext } from '../../providers/CartContext/CartContext';
 
 const CartModal = () => {
-  const { setCartModal, cart } = useContext(CartContext);
+  const { setCartModal, cartItems } = useContext(CartContext);
   return (
     <StyledCartModalBox>
       <dialog>
@@ -27,7 +25,7 @@ const CartModal = () => {
           </button>
         </header>
         <div className='cartBox'>
-          {cart.length > 0 ? (
+          {cartItems.length > 0 ? (
             <CartProductList />
           ) : (
             <div className='emptyBox'>
