@@ -1,4 +1,4 @@
-<h1 align="center">Kenzie Burguer v2</h1>
+<h1 align="center">Kenzie Burguer</h1>
 
 
 <p>Um ecommerce de hamburgueria, onde o usuário pode se cadastrar, fazer login, ver os produtos e comprá-los utilizando o carrinho.</p>
