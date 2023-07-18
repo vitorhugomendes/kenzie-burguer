@@ -57,45 +57,40 @@ export const CartProvider = ({ children }: iCartContextProps) => {
     setCartItems(newCartItems);
   };
 
-  const toggleCartItemQuantity = (id: number, value: string) => {
+  const toggleCartItemQuantity = (id: number, type: 'inc' | 'dec') => {
     foundProduct = cartItems.find((item) => item.id === id)!;
     index = cartItems.findIndex((product) => product.id === id);
     const newCartItems = cartItems.filter((item) => item.id !== id);
 
-    if (value === 'inc') {
+    if (type === 'inc') {
       foundProduct.quantity += 1;
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
+    } else if (type === 'dec') {
+      if (foundProduct.quantity > 1) {
+        foundProduct.quantity -= 1;
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
+      }
       setCartItems([
         ...newCartItems.slice(0, index),
         foundProduct,
         ...newCartItems.slice(index),
       ]);
-      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
-      setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
-    } else if (value === 'dec') {
-      if (foundProduct.quantity > 1) {
-        foundProduct.quantity -= 1;
-        setCartItems([
-          ...newCartItems.slice(0, index),
-          foundProduct,
-          ...newCartItems.slice(index),
-        ]);
-        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
-        setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
-      }
     }
   };
 
-  const increaseQuantity = () => {
-    setProductQuantity((previousQuantity) => previousQuantity + 1);
-  };
-
-  const decreaseQuantity = () => {
-    setProductQuantity((previousQuantity) => {
-      if (previousQuantity - 1 < 1) {
-        return 1;
-      }
-      return previousQuantity - 1;
-    });
+  const toggleItemQuantity = (type: 'inc' | 'dec') => {
+    if (type === 'inc') {
+      setProductQuantity((previousQuantity) => previousQuantity + 1);
+    } else if (type === 'dec') {
+      setProductQuantity((previousQuantity) => {
+        if (previousQuantity - 1 < 1) {
+          return 1;
+        }
+        return previousQuantity - 1;
+      });
+    }
   };
 
   const cartClear = () => {
@@ -113,8 +108,7 @@ export const CartProvider = ({ children }: iCartContextProps) => {
         totalPrice,
         totalQuantities,
         productQuantity,
-        increaseQuantity,
-        decreaseQuantity,
+        toggleItemQuantity,
         addProductToCart,
         cartClear,
         toggleCartItemQuantity,
