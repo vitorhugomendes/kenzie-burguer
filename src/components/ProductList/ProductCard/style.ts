@@ -19,7 +19,7 @@ export const StyledProductCard = styled.li`
     }
   }
 
-  .content {
+  .contentBox {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -29,6 +29,13 @@ export const StyledProductCard = styled.li`
     .price {
       font-weight: 600;
       color: ${({ theme }) => theme.colors.primary};
+    }
+
+    .buttonBox {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
     }
   }
 `;
