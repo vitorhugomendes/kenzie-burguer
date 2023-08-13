@@ -30,7 +30,12 @@ const ShopPage = () => {
               Authorization: `Bearer ${userToken}`,
             },
           });
-          setProducts(response.data);
+          const productsList = response.data.map((product) => ({
+            ...product,
+            quantity: 1,
+          }));
+          console.log(productsList);
+          setProducts(productsList);
         } catch (error: any) {
           toast.error(error?.response?.data);
         } finally {

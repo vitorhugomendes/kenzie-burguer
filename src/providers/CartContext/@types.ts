@@ -12,7 +12,7 @@ export interface iCartContext {
   totalPrice: number;
   totalQuantities: number;
   productQuantity: number;
-  toggleItemQuantity: (type: 'inc' | 'dec') => void;
+  toggleItemQuantity: (id: number, type: 'inc' | 'dec') => void;
   addProductToCart: (product: iProduct, quantity: number) => void;
   cartClear: () => void;
   toggleCartItemQuantity: (id: number, type: 'inc' | 'dec') => void;

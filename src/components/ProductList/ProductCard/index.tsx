@@ -7,9 +7,8 @@ import { CartContext } from '../../../providers/CartContext/CartContext';
 import QuantityBox from '../../QuantityBox';
 
 const ProductCard = ({ product }: iProductCard) => {
-  const { name, category, price, img } = product;
-  const { addProductToCart, productQuantity, toggleItemQuantity } =
-    useContext(CartContext);
+  const { name, category, price, img, id, quantity } = product;
+  const { addProductToCart, toggleItemQuantity } = useContext(CartContext);
 
   return (
     <StyledProductCard>
@@ -32,13 +31,14 @@ const ProductCard = ({ product }: iProductCard) => {
             $buttonSize='medium'
             $buttonStyle='green'
             onClick={() => {
-              addProductToCart(product, productQuantity);
+              addProductToCart(product, quantity);
             }}
           >
             Adicionar
           </StyledButton>
           <QuantityBox
-            quantity={productQuantity}
+            id={id}
+            quantity={quantity}
             toggleItemQuantity={toggleItemQuantity}
           />
         </div>

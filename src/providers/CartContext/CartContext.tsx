@@ -1,7 +1,8 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { iCartContext, iCartContextProps } from './@types';
 import { iProduct } from '../UserContext/@types';
+import { UserContext } from '../UserContext/UserContext';
 
 export const CartContext = createContext({} as iCartContext);
 
@@ -11,6 +12,7 @@ export const CartProvider = ({ children }: iCartContextProps) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [productQuantity, setProductQuantity] = useState(1);
+  const { products, setProducts } = useContext(UserContext);
 
   let foundProduct: iProduct;
   let index: number;
@@ -40,7 +42,9 @@ export const CartProvider = ({ children }: iCartContextProps) => {
 
       setCartItems([...cartItems, { ...newCartItem }]);
     }
-    toast.success(`${productQuantity} ${product.name} adicionado ao carrinho.`);
+    toast.success(
+      `${product.quantity} ${product.name} adicionado ao carrinho.`
+    );
   };
 
   const removeProductFromCart = (product: iProduct) => {
@@ -80,17 +84,23 @@ export const CartProvider = ({ children }: iCartContextProps) => {
     }
   };
 
-  const toggleItemQuantity = (type: 'inc' | 'dec') => {
+  const toggleItemQuantity = (id: number, type: 'inc' | 'dec') => {
+    foundProduct = products.find((item) => item.id === id)!;
+    index = products.findIndex((product) => product.id === id);
+    const newProductsItems = products.filter((item) => item.id !== id);
+
     if (type === 'inc') {
-      setProductQuantity((previousQuantity) => previousQuantity + 1);
+      foundProduct.quantity += 1;
     } else if (type === 'dec') {
-      setProductQuantity((previousQuantity) => {
-        if (previousQuantity - 1 < 1) {
-          return 1;
-        }
-        return previousQuantity - 1;
-      });
+      if (foundProduct.quantity > 1) {
+        foundProduct.quantity -= 1;
+      }
     }
+    setProducts([
+      ...newProductsItems.slice(0, index),
+      foundProduct,
+      ...newProductsItems.slice(index),
+    ]);
   };
 
   const cartClear = () => {

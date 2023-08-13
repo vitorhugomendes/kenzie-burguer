@@ -4,8 +4,8 @@ import { StyledParagraph } from '../../styles/typography';
 
 interface iQuantityBox {
   quantity: number;
-  id?: never;
-  toggleItemQuantity: (type: 'inc' | 'dec') => void;
+  id: number;
+  toggleItemQuantity: (id: number, type: 'inc' | 'dec') => void;
   toggleCartItemQuantity?: never;
 }
 
@@ -31,7 +31,7 @@ const QuantityBox = ({
       onClick={() =>
         toggleCartItemQuantity
           ? toggleCartItemQuantity(id, 'dec')
-          : toggleItemQuantity('dec')
+          : toggleItemQuantity(id, 'dec')
       }
     >
       <AiFillMinusSquare size={24} />
@@ -43,7 +43,7 @@ const QuantityBox = ({
       onClick={() =>
         toggleCartItemQuantity
           ? toggleCartItemQuantity(id, 'inc')
-          : toggleItemQuantity('inc')
+          : toggleItemQuantity(id, 'inc')
       }
     >
       <AiFillPlusSquare size={24} />
